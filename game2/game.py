@@ -56,8 +56,10 @@ def print_room_items(room):
 
     """
     if room["items"] != []:
-        print("There is " + list_of_items(room["items"]) + " here")
+        print("There is " + str(list_of_items(room["items"])) + " here")
         print("")
+    else:
+        return None
 
 def print_inventory_items(items):
     """This function takes a list of inventory items and displays it nicely, in a
@@ -71,7 +73,7 @@ def print_inventory_items(items):
     """
     
     if items != []:
-        print("You have " + list_of_items(items))
+        print("You have " + str(list_of_items(items)))
         print("")
     
 def print_room(room):
@@ -128,7 +130,7 @@ def print_room(room):
     print(room["description"])
     print()
     #Displays items in room
-    #print(list_of_items(room))
+    print_room_items(room)
         
 def exit_leads_to(exits, direction):
     """This function takes a dictionary of exits and a direction (a particular
@@ -196,9 +198,9 @@ def print_menu(exits, room_items, inv_items):
         # Print the exit name and where it leads to
         print_exit(direction, exit_leads_to(exits, direction))
 
-    #
-    # COMPLETE ME!
-    #
+    for items in room_items:
+        # Print the string list of items available in a room
+         print_room_items(items)
     
     print("What do you want to do?")
 
@@ -224,6 +226,7 @@ def is_valid_exit(exits, chosen_exit):
         if exit == chosen_exit:
             choice = True
     return choice
+    
 
 def execute_go(direction):
     """This function, given the direction (e.g. "south") updates the current room
@@ -323,7 +326,6 @@ def menu(exits, room_items, inv_items):
     normalised_user_input = normalise_input(user_input)
 
     return normalised_user_input
-
 
 def move(exits, direction):
     """This function returns the room into which the player will move if, from a
