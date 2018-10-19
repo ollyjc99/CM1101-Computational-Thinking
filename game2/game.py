@@ -29,8 +29,6 @@ def list_of_items(items):
     for i in range(len(items)):
         s = s + items[i]["name"] + ", "
     return s[:-2]
-    if s == 0:
-        return None
     #Removes the last 2 characters ", " from the end of the string
 
 def print_room_items(room):
@@ -56,11 +54,9 @@ def print_room_items(room):
 
     """
     if room["items"] != []:
-        print("There is " + str(list_of_items(room["items"])) + " here")
-        print("")
-    else:
-        return None
-
+        print("There is " + list_of_items(room["items"]) + " here.")
+        print()
+        
 def print_inventory_items(items):
     """This function takes a list of inventory items and displays it nicely, in a
     manner similar to print_room_items(). The only difference is in formatting:
@@ -73,8 +69,8 @@ def print_inventory_items(items):
     """
     
     if items != []:
-        print("You have " + str(list_of_items(items)))
-        print("")
+        print("You have " + list_of_items(items)+ ".")
+        print()
     
 def print_room(room):
     """This function takes a room as an input and nicely displays its name
@@ -130,7 +126,8 @@ def print_room(room):
     print(room["description"])
     print()
     #Displays items in room
-    print_room_items(room)
+    if room["items"] != []:
+        print(print_room_items(room))
         
 def exit_leads_to(exits, direction):
     """This function takes a dictionary of exits and a direction (a particular
@@ -145,6 +142,7 @@ def exit_leads_to(exits, direction):
     'Reception'
     """
     return rooms[exits[direction]]["name"]
+    # Returns the room which an exit will lead to.
 
 def print_exit(direction, leads_to):
     """This function prints a line of a menu of exits. It takes a direction (the
@@ -160,7 +158,7 @@ def print_exit(direction, leads_to):
     GO SOUTH to MJ and Simon's room.
     """
     print("GO " + direction.upper() + " to " + leads_to + ".")
-
+    # Prints the direction the user can go with the room that it leads to.
 
 def print_menu(exits, room_items, inv_items):
     """This function displays the menu of available actions to the player. The
@@ -198,10 +196,8 @@ def print_menu(exits, room_items, inv_items):
         # Print the exit name and where it leads to
         print_exit(direction, exit_leads_to(exits, direction))
 
-    for items in room_items:
         # Print the string list of items available in a room
-         print_room_items(items)
-    
+    print_room_items(room_items)
     print("What do you want to do?")
 
 
@@ -226,6 +222,7 @@ def is_valid_exit(exits, chosen_exit):
         if exit == chosen_exit:
             choice = True
     return choice
+    # Checks if an exit is valid by looking through the "exits" dictionary.
     
 
 def execute_go(direction):
@@ -237,8 +234,10 @@ def execute_go(direction):
     print(rooms[current_room]["exits"][direction])
     if is_valid_exit(current_room["exits"], direction) == True:
         current_room = current_room["exits"][direction]
+        # Changes the current_room to the user_input if is_valid_exit == True
     else:
         print("You cannot go there")
+        # If a direction entered is invalid the user is prompted
 
 def execute_take(item_id):
     """This function takes an item_id as an argument and moves this item from the
@@ -357,8 +356,6 @@ def main():
 
         # Execute the player's command
         execute_command(command)
-
-
 
 # Are we being run as a script? If so, run main().
 # '__main__' is the name of the scope in which top-level code executes.
