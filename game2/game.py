@@ -67,7 +67,6 @@ def print_inventory_items(items):
     <BLANKLINE>
 
     """
-    
     if items != []:
         print("You have " + list_of_items(items)+ ".")
         print()
@@ -128,7 +127,7 @@ def print_room(room):
     #Displays items in room
     if room["items"] != []:
         print(print_room_items(room))
-        
+         
 def exit_leads_to(exits, direction):
     """This function takes a dictionary of exits and a direction (a particular
     exit taken from this dictionary). It returns the name of the room into which
@@ -197,7 +196,7 @@ def print_menu(exits, room_items, inv_items):
         print_exit(direction, exit_leads_to(exits, direction))
 
         # Print the string list of items available in a room
-    print_room_items(room_items)
+    #print_room_items(room_items)
     print("What do you want to do?")
 
 
@@ -223,7 +222,6 @@ def is_valid_exit(exits, chosen_exit):
             choice = True
     return choice
     # Checks if an exit is valid by looking through the "exits" dictionary.
-    
 
 def execute_go(direction):
     """This function, given the direction (e.g. "south") updates the current room
@@ -362,4 +360,3 @@ def main():
 # See https://docs.python.org/3.4/library/__main__.html for explanation
 if __name__ == "__main__":
     main()
-
