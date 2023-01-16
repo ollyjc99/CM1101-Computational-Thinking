@@ -1,3 +1,4 @@
 function runAction(t) {
-    return  'Order Sent For Approval';
+    t.data.message = 'Order Sent For Approval';
+    return  t;
 }
